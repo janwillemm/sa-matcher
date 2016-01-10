@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="sa_matcher" type="MySQL - 5.5.29-log">
+   <tables>
+      <table name="course" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="tud_id" nullable="false" remarks="" size="8" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="name" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="3" name="leerlijn_id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="course_vacancy" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="course_id" nullable="false" remarks="The course having a vacancy" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="vacancy_id" nullable="false" remarks="The vacancy coupled to a course" size="5" type="SMALLINT"/>
+         <primaryKey column="course_id" sequenceNumberInPK="1"/>
+         <primaryKey column="vacancy_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="course_id"/>
+            <column ascending="true" name="vacancy_id"/>
+         </index>
+         <index name="course_id" unique="false">
+            <column ascending="true" name="course_id"/>
+         </index>
+         <index name="vacancy_id" unique="false">
+            <column ascending="true" name="vacancy_id"/>
+         </index>
+      </table>
+      <table name="leerlijn_type" numRows="6" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Internal identifier" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="leerlijn" nullable="false" remarks="The leerlijn waar een vak onder valt" size="257" type="VARCHAR"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="period_type" numRows="5" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Internal identifier" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="duration" nullable="false" remarks="The period of an vacancy" size="20" type="VARCHAR"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="person" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Internal identifier" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="name" nullable="false" remarks="" size="257" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="emailaddress" nullable="false" remarks="" size="257" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="3" name="picture" nullable="false" remarks="" size="65535" type="TEXT"/>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="0" id="4" name="register_date" nullable="false" remarks="" size="19" type="TIMESTAMP"/>
+         <column autoUpdated="false" digits="0" id="5" name="person_type_id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="6" name="tud_id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="person_type" numRows="5" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="type" nullable="false" remarks="" size="100" type="VARCHAR"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="type" unique="true">
+            <column ascending="true" name="type"/>
+         </index>
+      </table>
+      <table name="review" numRows="0" remarks="This table stores all reviews from people to other people" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Internal identifier" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="writer_id" nullable="false" remarks="The person writing the review" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="2" name="receiver_id" nullable="false" remarks="The person subject in the review" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="3" name="vacancy_id" nullable="false" remarks="The vacancy the review is written for" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="4" name="is_anonymous" nullable="false" remarks="Should the from person be anonymous for the receiver" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="5" name="score" nullable="false" remarks="The score given by the from person" size="22" type="DOUBLE"/>
+         <column autoUpdated="false" digits="0" id="6" name="explanation" nullable="false" remarks="The explanation" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="7" name="creation_date" nullable="false" remarks="The date on which the review is written" size="10" type="DATE"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="student_leerlijn_preference" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="student_id" nullable="false" remarks="Person id" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="2" name="period_type_id" nullable="false" remarks="Period type id" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="student_period_preference" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="student_id" nullable="false" remarks="Person id" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="2" name="leerlijn_type_id" nullable="false" remarks="Leerlijn type id" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="student_work_preference" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="1" name="student_id" nullable="false" remarks="Person id" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="2" name="work_type_id" nullable="false" remarks="Work type id" size="5" type="SMALLINT"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="vacancy" numRows="1" remarks="Is the model for a vacancy and its properties" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Vacature id intern" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="title" nullable="false" remarks="The title, max 257 characters" size="257" type="VARCHAR"/>
+         <column autoUpdated="false" digits="0" id="2" name="description" nullable="false" remarks="Describes the vacancy" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="3" name="requirements" nullable="false" remarks="States the requirements" size="65535" type="TEXT"/>
+         <column autoUpdated="false" digits="0" id="4" name="open_date" nullable="false" remarks="The date of creation of the vavancy. Should reset when the vacancy is reopened" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="5" name="expire_date" nullable="false" remarks="The date of expirement. If due, should close the vacancy" size="10" type="DATE"/>
+         <column autoUpdated="false" digits="0" id="6" name="is_open" nullable="false" remarks="Shows if the vacancy is open for applications" size="0" type="BIT"/>
+         <column autoUpdated="false" digits="0" id="7" name="hours_per_week" nullable="false" remarks="Describes the number of hours per week needed for one SA" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="8" name="num_of_sa_needed" nullable="false" remarks="Describes how many SA's are needed" size="10" type="INT"/>
+         <column autoUpdated="false" digits="0" id="9" name="type_work_id" nullable="false" remarks="Links to the type of work available" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="10" name="period_id" nullable="false" remarks="" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="11" name="contact_email" nullable="false" remarks="" size="257" type="VARCHAR"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="type_work" unique="false">
+            <column ascending="true" name="type_work_id"/>
+         </index>
+      </table>
+      <table name="vacancy_period" numRows="1" remarks="" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="duration_id" nullable="false" remarks="The duration" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="vacancy_id" nullable="false" remarks="The vacancy" size="5" type="SMALLINT"/>
+         <primaryKey column="duration_id" sequenceNumberInPK="1"/>
+         <primaryKey column="vacancy_id" sequenceNumberInPK="2"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="duration_id"/>
+            <column ascending="true" name="vacancy_id"/>
+         </index>
+         <index name="duration_id" unique="false">
+            <column ascending="true" name="duration_id"/>
+         </index>
+         <index name="vacancy_id" unique="true">
+            <column ascending="true" name="vacancy_id"/>
+         </index>
+      </table>
+      <table name="work_type" numRows="8" remarks="This table has the different types of work which are availab" type="TABLE">
+         <column autoUpdated="true" digits="0" id="0" name="id" nullable="false" remarks="Internal identifier" size="5" type="SMALLINT"/>
+         <column autoUpdated="false" digits="0" id="1" name="type" nullable="false" remarks="The type of work" size="257" type="VARCHAR"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="false">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id_2" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>

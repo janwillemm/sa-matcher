@@ -1,0 +1,13 @@
+course
+course_vacancy
+leerlijn_type
+period_type
+person
+person_type
+review
+student_leerlijn_preference
+student_period_preference
+student_work_preference
+vacancy
+vacancy_period
+work_type
