@@ -14,12 +14,12 @@ use yii\helpers\Html;
 
 ?>
 
-<h2> Choose your course</h2>
+<h2> Choose the Student Assistant</h2>
 
 <?php $form = RoleBasedActiveForm::begin() ?>
 
 <div class="form-group">
-<?= Html::DropDownList('course_id', 1,  ArrayHelper::map($models, 'id', 'name')) ?>
+<?= Html::DropDownList('receiver_id', 1,  ArrayHelper::map($sas, 'id', 'name')) ?>
 
 </div>
 

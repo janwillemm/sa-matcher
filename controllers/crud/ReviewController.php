@@ -2,10 +2,13 @@
 
 namespace app\controllers\crud;
 
+use app\models\Course;
+use app\models\Vacancy;
 use Yii;
 use app\models\Review;
 use app\models\search\ReviewSearch;
 use yii\web\Controller;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -32,6 +35,8 @@ class ReviewController extends Controller
      */
     public function actionIndex()
     {
+        // TODO: Do only show your own reviews
+        // Or show reviews from people you have access to
         $searchModel = new ReviewSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -40,6 +45,8 @@ class ReviewController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
 
     /**
      * Displays a single Review model.
@@ -58,9 +65,18 @@ class ReviewController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($vacancyId)
     {
         $model = new Review();
+
+        $vacancy = Vacancy::findOne($vacancyId);
+
+        if($vacancy === null){
+            throw new HttpException(404, "This vacancy the Students Assistent is working for is not found");
+        }
+
+        $model->vacancy_id = $vacancyId;
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use Yii\helpers\VacancyRoleHelper;
 
 /**
  * This is the model class for table "vacancy".
@@ -75,5 +76,14 @@ class Vacancy extends \yii\db\ActiveRecord
      */
     public function getPeriodTypes(){
         return $this->hasMany(PeriodType::className(), ['id' => 'vacancy_id'])->viaTable('vacancy_period', ['duration_id' => 'id']);
+    }
+
+    public function getStudentAssistents(){
+        return $this->hasMany(Person::className(), ['id' => 'vacancy_id'])
+            ->viaTable('person_vacancy_role', ['person_id' => 'id'],
+                function($query){
+                    $query->onCondition(['role_id' => VacancyRoleHelper::STUDENTASSISTANT]);
+                }
+            );
     }
 }

@@ -1,33 +1,35 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use app\controllers\extensions\RoleBasedActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Person */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form app\controllers\extensions\RoleBasedActiveForm */
 ?>
 
 <div class="person-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = RoleBasedActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'emailaddress')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'picture')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'picture', ['access_rule'=>1])->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'register_date')->textInput() ?>
 
-    <?= $form->field($model, 'person_type_id')->textInput() ?>
+    <?= //https://github.com/yiisoft/yii2/issues/3660
+        // to get this working with a list
+    $form->field($model, 'personType', ['access_rule'=>2]) ?>
 
-    <?= $form->field($model, 'tud_id')->textInput() ?>
+    <?= $form->field($model, 'tud_id', ['access_rule'=>1])->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php RoleBasedActiveForm::end(); ?>
 
 </div>

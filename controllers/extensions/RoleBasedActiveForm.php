@@ -1,4 +1,5 @@
 <?php
+namespace app\controllers\extensions;
 /**
  * Created by PhpStorm.
  * User: jw
@@ -11,7 +12,7 @@
  *
  */
 
-
+use kartik\widgets\ActiveForm;
 
 class RoleBasedActiveForm extends ActiveForm {
 
@@ -27,30 +28,33 @@ class RoleBasedActiveForm extends ActiveForm {
      *      If this equals 0 its editable
      *      If this equals 1 its non editable
      *      If this equals 2 its not visible and not editable
+     *
+     * @return the field as defined by the parent
      */
     public function field($model, $attribute, $options = []) {
-        if(!isset($options))
+        if(!isset($options)) {
             return parent::field($model, $attribute);
-        if(!isset($options['access_rule']))
+        }
+        if(!isset($options['access_rule'])) {
             return parent::field($model, $attribute, $options);
+        }
 
         // There are access rules for this field
 
         $rule = $options['access_rule'];
-        $options['access_rule'] == null;
-
+        unset($options['access_rule']);
         return $this->_fieldWithAccessRules($model, $attribute, $options, $rule);
     }
 
     private function _fieldWithAccessRules($model, $attribute, $options, $rule){
         switch($this->_verifyAccessRules($rule)){
-            case EDITABLE:
+            case self::EDITABLE:
                 return parent::field($model, $attribute, $options);
-            case NONEDITABLE:
+            case self::NONEDITABLE:
                 return parent::field($model, $attribute, array_merge($options, [
                     'template' => '{label}' . $model->$attribute,
                 ]));
-            case INVISIBLE:
+            case self::INVISIBLE:
                 return;
         }
 

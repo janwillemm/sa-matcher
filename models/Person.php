@@ -61,7 +61,7 @@ class Person extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery PersonType
      */
     public function getPersonType(){
-        return $this->hasOne(PersonType::className(), ['person_type_id' => 'id']);
+        return $this->hasOne(PersonType::className(), ['id' => 'person_type_id']);
     }
 
 

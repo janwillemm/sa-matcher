@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\helpers\CourseRoleHelper;
 
 /**
  * This is the model class for table "course".
@@ -61,5 +62,20 @@ class Course extends \yii\db\ActiveRecord
      */
     public function getLeerlijn(){
         return $this->hasOne(LeerlijnType::className(), ['leerlijn_id' => 'id']);
+    }
+
+    /**
+     * Returns all studentAssistants for this course
+     *
+     * @return \yii\db\ActiveQuery Person
+     */
+    public function getStudentAssistants(){
+        return $this->hasMany(Person::className(), ['id' => 'person_id'])
+            ->viaTable('person_course_role', ['course_id' => 'id'],
+                function($query){
+                    $query->onCondition(['role_id' => CourseRoleHelper::STUDENTASSISTANT]);
+                }
+            );
+
     }
 }
