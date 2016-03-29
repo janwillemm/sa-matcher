@@ -9,20 +9,22 @@ namespace app\controllers;
  * Time: 12:09
  */
 
-class StudentController extends \yii\base\Controller {
+class StudentController extends BaseController {
 
     /**
      * Show homepage choices
      * @return mixed
      */
-    public function actionIndex()
-    {
-        // TODO: Real current user
-        $user = \app\models\Person::findOne(1);
 
-        return $this->render('index', [
-            'user' => $user,
-        ]);
+    public function beforeAction(){
+        PARENT::beforeAction();
+        if (\Yii::$app->user->isGuest()) {
+            return false;
+        }
+        if(!\Yii::$app->user->isStudent()){
+            return false;
+        }
+        return true;
     }
 
 

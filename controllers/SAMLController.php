@@ -32,10 +32,18 @@ class SamlController extends BaseController {
         ];
     }
 
+
     /**
      * @param array $attributes attributes sent by Identity Provider.
      */
     public function callback($attributes) {
-        // do something
+        // Find the user
+        var_dump($attributes);
+        die();
+        // Log in the user
+
+        Yii::$app->user->login($user, 3600*24*30);
+
+        return $this->goHome();
     }
 }

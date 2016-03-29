@@ -12,6 +12,15 @@ use Yii;
  */
 class PersonType extends \yii\db\ActiveRecord
 {
+
+    /**
+     * Must be the same as in the DATABASE!!!
+     */
+    const ADMINISTRATOR = 2;
+    const EMPLOYEE = 1;
+    const STUDENT = 0;
+    const SUPERUSER = 3;
+
     /**
      * @inheritdoc
      */
@@ -42,4 +51,5 @@ class PersonType extends \yii\db\ActiveRecord
             'type' => 'Type',
         ];
     }
+
 }

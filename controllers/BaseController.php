@@ -7,8 +7,9 @@
  */
 
 namespace app\controllers;
+use app\commands\components\SAAccessRule;
+
 
 class BaseController extends \yii\base\Controller{
-
 
 }

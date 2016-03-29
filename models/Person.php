@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "person".
@@ -15,7 +16,7 @@ use Yii;
  * @property integer $person_type_id
  * @property integer $tud_id
  */
-class Person extends \yii\db\ActiveRecord
+class Person extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * @inheritdoc
@@ -74,4 +75,55 @@ class Person extends \yii\db\ActiveRecord
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // // Not used
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAuthKey()
+    {
+        $this->getAuthKey();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    public function isAllowed($role){
+        return $this->getPersonType()->id == $role;
+    }
+
+    public function isStudent(){
+        return $this->getPersonType()->id == PersonType::STUDENT;
+    }
+
+    public function isEmployee(){
+        return $this->getPersonType()->id == PersonType::EMPLOYEE;
+    }
 }
