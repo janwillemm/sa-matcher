@@ -12,6 +12,9 @@ use app\models\Vacancy;
  */
 class VacancySearch extends Vacancy
 {
+    public $workType;
+    public $periodTypes;
+
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class VacancySearch extends Vacancy
     {
         return [
             [['id', 'is_open', 'hours_per_week', 'num_of_sa_needed', 'type_work_id', 'period_id'], 'integer'],
-            [['title', 'description', 'requirements', 'open_date', 'expire_date', 'contact_email'], 'safe'],
+            [['title', 'description', 'requirements', 'open_date', 'expire_date', 'contact_email', 'workType', 'periodTypes'], 'safe'],
         ];
     }
 
@@ -32,6 +35,8 @@ class VacancySearch extends Vacancy
         return Model::scenarios();
     }
 
+    // TODO: http://www.yiiframework.com/wiki/653/displaying-sorting-and-filtering-model-relations-on-a-gridview/
+
     /**
      * Creates data provider instance with search query applied
      *
@@ -43,11 +48,15 @@ class VacancySearch extends Vacancy
     {
         $query = Vacancy::find();
 
+        $query->joinWith(['workType']);
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
         $this->load($params);
+
+
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -56,20 +65,15 @@ class VacancySearch extends Vacancy
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
-            'open_date' => $this->open_date,
-            'expire_date' => $this->expire_date,
-            'is_open' => $this->is_open,
             'hours_per_week' => $this->hours_per_week,
-            'num_of_sa_needed' => $this->num_of_sa_needed,
-            'type_work_id' => $this->type_work_id,
-            'period_id' => $this->period_id,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'requirements', $this->requirements])
-            ->andFilterWhere(['like', 'contact_email', $this->contact_email]);
+        // Checkboxes
+
+        $query->andFilterWhere(['like', 'contact_email', $this->contact_email])
+            ->andFilterWhere(['like', 'work_type.type', $this->workType])
+            ->andFilterWhere(['like', 'period_type.duration', $this->periodTypes]);
+        // filter by country name
 
         return $dataProvider;
     }

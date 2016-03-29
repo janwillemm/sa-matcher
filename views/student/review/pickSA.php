@@ -12,6 +12,10 @@ use yii\helpers\Html;
  * Time: 21:41
  */
 
+$this->title = "Write review";
+$this->params['breadcrumbs'][] = ['label' => 'Student', 'url' => ['student/index']];
+$this->params['breadcrumbs'][] = "Write review";
+
 ?>
 
 <h2> Choose the Student Assistant</h2>

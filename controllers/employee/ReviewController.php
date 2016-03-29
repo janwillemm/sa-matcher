@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\student;
+namespace app\controllers\employee;
 
 use app\models\Course;
 use Yii;
@@ -8,7 +8,7 @@ use yii\db\Query;
 use yii\web\Controller;
 use app\models\Review;
 use app\models\Vacancy;
-use yii\data\ActiveDataProvider;
+use app\models\Person;
 
 
 /**
@@ -25,27 +25,20 @@ class ReviewController extends Controller
      */
     public function actionIndex()
     {
-        // Show only your reviews
-        // Now hardcoded user ID = 1 which is a student
-        $student_ID = 1;
+        // TODO: use current user ID
+        // Now hardcoded user ID = 3 which is a teacher
+        $teacherID = 3;
 
 
-        // Get the AVG score
-        $avgScore = Review::find()->where(['writer_id' => $student_ID ])->average('score');
-        Yii::trace($avgScore);
+        // My vacancies
+        // TODO: Do something with the status of vacancies
+        $employee = Person::findOne($teacherID);
 
-        // Get the reviews
-        $query = Review::find()->where(['writer_id' => $student_ID ]);
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
+
+        $vacancies = $employee->vacancies;
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
-            'avgScore' => $avgScore,
+            'vacancies' => $vacancies,
         ]);
     }
 

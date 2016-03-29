@@ -82,6 +82,15 @@ class Review extends \yii\db\ActiveRecord
      * @return \yii\db\ActiveQuery Vacancy
      */
     public function getVacancy(){
-        return $this->hasOne(Vacancy::className(), ['vacancy_id' => 'id']);
+        return $this->hasOne(Vacancy::className(), ['id' => 'vacancy_id']);
+    }
+
+    /**
+     * Returns the Review Status
+     *
+     * @return \yii\db\ActiveQuery ReviewStatus
+     */
+    public function getStatus(){
+        return $this->hasOne(ReviewStatus::class, ['id' => 'status_id']);
     }
 }

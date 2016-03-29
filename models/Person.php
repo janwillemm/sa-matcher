@@ -64,5 +64,14 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasOne(PersonType::className(), ['id' => 'person_type_id']);
     }
 
+    /**
+     * Returns all vacancies this person has
+     *
+     * @return \yii\db\ActiveQuery Vacancy
+     */
+    public function getVacancies(){
+        return $this->hasMany(Vacancy::className(), ['id' => 'vacancy_id'])->viaTable('person_vacancy_role', ['person_id' => 'id']);
+    }
+
 
 }

@@ -2,30 +2,19 @@
 
 /* @var $this yii\web\View */
 
-$this->title = 'My Yii Application';
+use \yii\helpers\Url;
+
+$this->title = 'SA Matcher';
 ?>
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
+        <h1>SA-Matcher!</h1>
 
-        <p class="lead">You have successfully created your Yii-powered application.</p>
+        <p class="lead">To continue, choose what you are and log in!</p>
 
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <p><a class="btn btn-lg btn-success" href="<?= Url::to(array('student/index')) ?>">Student</a>
+        <a class="btn btn-lg btn-success" href="<?= Url::to(array('employee/index')) ?>">Teacher</a></p>
     </div>
 
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Tests</h2>
-
-                <p></p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-
-        </div>
-
-    </div>
 </div>

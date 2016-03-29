@@ -89,3 +89,15 @@ a.desc:after {
     padding: 10px 20px;
     margin: 0 0 15px 0;
 }
+
+
+div.block {
+    width:300px;
+    height:100px;
+    font:18pt bold;
+    border:solid 1px grey;
+    vertical-align: middle;
+    text-align: center;
+    padding-top:37px;
+    float:left;
+}
