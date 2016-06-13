@@ -1,6 +1,7 @@
 <?php
 
 namespace app\controllers;
+use yii\helpers\Url;
 
 /**
  * Created by PhpStorm.
@@ -9,22 +10,21 @@ namespace app\controllers;
  * Time: 12:09
  */
 
-class StudentController extends BaseController {
+class StudentBaseController extends BaseController {
 
     /**
      * Show homepage choices
      * @return mixed
      */
 
-    public function beforeAction(){
-        PARENT::beforeAction();
-        if (\Yii::$app->user->isGuest()) {
+    public function beforeAction($action){
+        if (\Yii::$app->user->isGuest) {
+            return \Yii::$app->response->redirect(Url::to(['/authentication/login']));
+        }
+        if(!\Yii::$app->user->identity->isStudent()){
             return false;
         }
-        if(!\Yii::$app->user->isStudent()){
-            return false;
-        }
-        return true;
+        return parent::beforeAction($action);
     }
 
 

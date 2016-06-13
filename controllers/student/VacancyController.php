@@ -2,6 +2,7 @@
 
 namespace app\controllers\student;
 
+use app\controllers\StudentBaseController;
 use app\models\filter\VacancyFilter;
 use Yii;
 use app\models\search\VacancySearch;
@@ -9,7 +10,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\Vacancy;
 
-class VacancyController extends Controller {
+class VacancyController extends StudentBaseController {
     // TODO: Check if person is a student
     public function behaviors()
     {
@@ -52,8 +53,9 @@ class VacancyController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
+        $id = $_GET['id'];
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);

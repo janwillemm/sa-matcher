@@ -11,10 +11,10 @@ $settings = array (
     // or unencrypted messages if it expects them signed or encrypted
     // Also will reject the messages if not strictly follow the SAML
     // standard: Destination, NameId, Conditions ... are validated too.
-    'strict' => false,
+    'strict' => true,
 
     // Enable debug mode (to print errors)
-    'debug' => false,
+    'debug' => true,
 
     // Service Provider Data that we are deploying
     'sp' => array (
@@ -43,7 +43,7 @@ $settings = array (
         // Specifies constraints on the name identifier to be used to
         // represent the requested subject.
         // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
-        'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified',
+        'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent',
 
         // Usually x509cert and privateKey of the SP are provided by files placed at
         // the certs folder. But we can also provide them with the following parameters
@@ -97,11 +97,11 @@ KQZfFsxSpv3d4DLNa0kBtE0=',
     // Identity Provider Data that we want connect with our SP
     'idp' => array (
         // Identifier of the IdP entity  (must be a URI)
-        'entityId' => 'gatekeepert.tudelft.nl',
+        'entityId' => 'https://gatekeeper2.tudelft.nl/openaselect/profiles/saml2/',
         // SSO endpoint info of the IdP. (Authentication Request protocol)
         'singleSignOnService' => array (
             // URL Target of the IdP where the SP will send the Authentication Request Message
-            'url' => 'https://gatekeepert.tudelft.nl/openaselect/profiles/saml2/sso/web',
+            'url' => 'https://gatekeeper2.tudelft.nl/openaselect/profiles/saml2/sso/web',
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-POST binding only
@@ -110,29 +110,29 @@ KQZfFsxSpv3d4DLNa0kBtE0=',
         // SLO endpoint info of the IdP.
         'singleLogoutService' => array (
             // URL Location of the IdP where the SP will send the SLO Request
-            'url' => 'https://gatekeepert.tudelft.nl/openaselect/profiles/saml2/sso/logout',
+            'url' => 'https://gatekeeper2.tudelft.nl/openaselect/profiles/saml2/sso/logout',
             // SAML protocol binding to be used when returning the <Response>
             // message.  Onelogin Toolkit supports for this endpoint the
             // HTTP-Redirect binding only
             'binding' => 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
         ),
         // Public x509 certificate of the IdP
-        'x509cert' => 'MIIDZDCCAkygAwIBAgIEVmUtUzANBgkqhkiG9w0BAQUFADB0MQswCQYDVQQGEwJOTDEVMBMGA1UE
-CBMMWnVpZCBIb2xsYW5kMQ4wDAYDVQQHEwVEZWxmdDERMA8GA1UEChMIVFUgRGVsZnQxEDAOBgNV
-BAsTB1NTQy1JQ1QxGTAXBgNVBAMTEHR1ZGFzZWxlY3RzaWduZWQwHhcNMTUxMjA3MDY1NTE1WhcN
-MTYxMjA2MDY1NTE1WjB0MQswCQYDVQQGEwJOTDEVMBMGA1UECBMMWnVpZCBIb2xsYW5kMQ4wDAYD
+        'x509cert' => 'MIIDhzCCAm+gAwIBAgIEfRjvpzANBgkqhkiG9w0BAQsFADB0MQswCQYDVQQGEwJOTDEVMBMGA1UE
+CBMMWnVpZC1Ib2xsYW5kMQ4wDAYDVQQHEwVEZWxmdDERMA8GA1UEChMIVFUgRGVsZnQxEDAOBgNV
+BAsTB1NTQy1JQ1QxGTAXBgNVBAMTEHR1ZGFzZWxlY3RzaWduZWQwHhcNMTYwMjAxMTAyMjQ0WhcN
+MjYwMTI5MTAyMjQ0WjB0MQswCQYDVQQGEwJOTDEVMBMGA1UECBMMWnVpZC1Ib2xsYW5kMQ4wDAYD
 VQQHEwVEZWxmdDERMA8GA1UEChMIVFUgRGVsZnQxEDAOBgNVBAsTB1NTQy1JQ1QxGTAXBgNVBAMT
-EHR1ZGFzZWxlY3RzaWduZWQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCEb5v1jbv5
-YKw8G48UNWS+dBg5AvWesqMdgoDm8Qz0b4ixhfRhLasdqjvpbw/yp/nnxgOQTDrBSYQCawi2gOz3
-9pZSnjyL4IB/Pc/JfMobH00ZIqvg8P0UgtZcsG/thHUh8wyJQcRvGNhtTjETK8w0ZxRI1duA8oIn
-AHjxNppJpiOgetOvPjCxx5Gm7HkyVmRTvqiD0Lrag46aFcUsC1byXW7TyRJmC8jyLMlWPqEg5WM2
-BytmDVgeyww3hBsZl6JcRt98Ic7XL7X0xm7UBdqkakmTR0Pc7DIC+SIeMmicX5qqas4vb3qpljvz
-NQnOYdtVTvgNn+Mjs8aoF47YFCYjAgMBAAEwDQYJKoZIhvcNAQEFBQADggEBAD2Tm7304BLLtqYb
-iR17VefQq7n3ESHDjsIBHn6nP698AOMb6+nkwwb1BK+X0o1p/IuPm3ry9Ar0x7bRAIwfajeXHPeb
-VkAPvr/u167CzRZleVpsx0dwZzDxSHTJAZIlRkDImvbwpdW+p6OjJZa09D6QnYvkGdM0hWPShZY6
-x3kOZ+Z7uVGe74eTMLzPg4wvHmTF4bZipCGj6Nc+yZAJPNcuC4106XdBbh+/MEZF1yZoBgjsi+5r
-7GG14tcQan4fMjjqP5PW3TWsZJF710LRZVZ4ePQuypnJlly871ODSzjg3yfhAWLhOajZjQALsIBQ
-MFBnBkbf8q9HFaPWuGqKD0s=',
+EHR1ZGFzZWxlY3RzaWduZWQwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDBT4QL8BWh
+dKIpNQFFfwk9T9/5z+sI8MLvxUuIkdpi+LOxvrPqhfM80FNaYGOY+LUOCHe9YW3Xez9MY1k2rcT8
+J3YAyosXgKoha5lbGf59ZMdjA9+KciJdIQ9O2+NF5xai72OCuTsfPN1RZT8JqP8WtoHAKsrMXZbX
+toE7XVTGXYvwE2aU25tW9JiDb3ZEvJibmGHKS7EDL5uau0DmTYoNQZE76jErdPl3idSNBuk5PBnJ
+4hV1NqWfAiDYb1oVkpQath2zBVSUoMNhNis3bmQdCFHzruVrX8ClhGEPurnxtxGgTbudmbXM4CF3
+w1izasUJCAq/vNvM65rQ7p5qL8hVAgMBAAGjITAfMB0GA1UdDgQWBBSUqH9CcXmKnfNLTCaUksq2
+Qg2agzANBgkqhkiG9w0BAQsFAAOCAQEATTh4nDSYAiU0TEl6DNCis9BH99lBLaIg2rciYawQKgQZ
+aPhwCtBxOPy56fMcJc/cg34UiUkKtiIdmwilLBim3aZlVNKOKpZOm54B7IXxxM0VflRWvG6r5d/e
+33mZmmSFMMwK7duKF8W5tyNA56wznczNkTV9H6xOdYJO0lc2Pq7Vs+zJx7pb7YEz0ibwrTofM5eP
+koKMMApW7xlZxgWr0Cw+q/+hN5m3uTa1MT478FJ2cy7aEJRRIRl7VwRidD4Fodd4HZx+zlbfKOk6
++9KazDUS7qIoqx3QsCn1CmOG2ymoTEMD6I4fSiiOCLmBvk7meTrYuyyI+W11s1W41hNPqg==',
         /*
          *  Instead of use the whole x509cert you can use a fingerprint
          *  (openssl x509 -noout -fingerprint -in "idp.crt" to generate it,
@@ -150,5 +150,37 @@ MFBnBkbf8q9HFaPWuGqKD0s=',
             'givenName' => 'Jan-Willem Manenschijn',
             'emailAddress' => 'J.W.Manenschijn@student.tudelft.nl'
         ),
+    ),
+    'security' => array (
+        // Indicates that the nameID of the <samlp:logoutRequest> sent by this SP
+        // will be encrypted.
+        'nameIdEncrypted' => false,
+        // Indicates whether the <samlp:AuthnRequest> messages sent by this SP
+        // will be signed.  [Metadata of the SP will offer this info]
+        'authnRequestsSigned' => true,
+
+        // Indicates whether the <samlp:logoutRequest> messages sent by this SP
+        // will be signed.
+        'logoutRequestSigned' => true,
+
+        // Indicates whether the <samlp:logoutResponse> messages sent by this SP
+        // will be signed.
+        'logoutResponseSigned' => true,
+
+        /** signatures and encryptions required **/
+
+        // Indicates a requirement for the <samlp:Response>, <samlp:LogoutRequest>
+        // and <samlp:LogoutResponse> elements received by this SP to be signed.
+        'wantMessagesSigned' => true,
+
+        // Indicates a requirement for the <saml:Assertion> elements received by
+        // this SP to be signed. [Metadata of the SP will offer this info]
+        'wantAssertionsSigned' => true,
+
+        // Indicates a requirement for the NameID received by
+        // this SP to be encrypted.
+        'wantNameIdEncrypted' => false,
+
+        'signatureAlgorithm' => 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
     ),
 );

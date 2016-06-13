@@ -14,7 +14,7 @@ class CourseRoleHelper extends RoleHelper {
 
     protected $tableName = 'course_role_type';
 
-    const TEACHER = 0;
+    const EMPLOYEE = 0;
     const STUDENT = 1;
     const STUDENTASSISTANT = 2;
 }

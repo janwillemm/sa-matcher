@@ -36,7 +36,6 @@ class Review extends \yii\db\ActiveRecord
             [['writer_id', 'receiver_id', 'vacancy_id', 'is_anonymous'], 'integer'],
             [['score'], 'number'],
             [['explanation'], 'string'],
-            [['creation_date'], 'safe']
         ];
     }
 

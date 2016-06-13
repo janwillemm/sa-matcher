@@ -7,6 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Vacancy */
 
 $this->title = $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Employee', 'url' => ['employee/index']];
 $this->params['breadcrumbs'][] = ['label' => 'Vacancies', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,32 +16,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+
+        <?= Html::a('Find TA Matches', ['employee/match/showmatches', 'vacancy' => $model->id], [
+            'class' => 'btn btn-primary']) ?>
+        <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
+
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'title',
             'description:ntext',
             'requirements:ntext',
             'open_date',
             'expire_date',
-            'is_open',
+//            'is_open',
             'hours_per_week',
             'num_of_sa_needed',
-            'type_work_id',
-            'period_id',
-            'contact_email:email',
         ],
     ]) ?>
 
+    <!-- @TODO: Add preferences options -->
 </div>

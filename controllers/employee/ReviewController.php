@@ -2,6 +2,7 @@
 
 namespace app\controllers\employee;
 
+use app\controllers\EmployeeBaseController;
 use app\models\Course;
 use Yii;
 use yii\db\Query;
@@ -14,34 +15,8 @@ use app\models\Person;
 /**
  * ReviewController implements the actions a Student can do
  */
-class ReviewController extends Controller
+class ReviewController extends EmployeeBaseController
 {
-    // TODO: Check if person is a student
-
-
-    /**
-     * Lists all your student Review models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        // TODO: use current user ID
-        // Now hardcoded user ID = 3 which is a teacher
-        $teacherID = 3;
-
-
-        // My vacancies
-        // TODO: Do something with the status of vacancies
-        $employee = Person::findOne($teacherID);
-
-
-        $vacancies = $employee->vacancies;
-
-        return $this->render('index', [
-            'vacancies' => $vacancies,
-        ]);
-    }
-
     /**
      * Shows the end user the different steps to create a review.
      * The first stiep is picking a course
@@ -75,8 +50,9 @@ class ReviewController extends Controller
         if(isset($data['step'])){
             if($model->save()) {
                 // TODO: Show saved correctly message
-                $this->redirect(array("student/review/index"));
                 $session->remove("review_model");
+                return $this->redirect("/employee/index");
+
             }
             else {
                 // TODO: Error handling
@@ -138,8 +114,7 @@ class ReviewController extends Controller
     }
 
     private function _createReview($model, $student_id){
-        // TODO: get current loggedin student/person information
-        $model->writer_id = 1;
+        $model->writer_id = \Yii::$app->user->identity->getId();
         $model->receiver_id = $student_id;
 
         // TODO: fix date!
@@ -172,6 +147,7 @@ class ReviewController extends Controller
 
         $model->vacancy_id = $vacancy->id;
 
+        $this->getSession()['review_model'] = $model;
         return $this->render('writeReview', [
             'model' => $model
         ]);

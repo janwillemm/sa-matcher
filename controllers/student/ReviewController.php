@@ -2,6 +2,7 @@
 
 namespace app\controllers\student;
 
+use app\controllers\StudentBaseController;
 use app\models\Course;
 use Yii;
 use yii\db\Query;
@@ -14,11 +15,8 @@ use yii\data\ActiveDataProvider;
 /**
  * ReviewController implements the actions a Student can do
  */
-class ReviewController extends Controller
+class ReviewController extends StudentBaseController
 {
-    // TODO: Check if person is a student
-
-
     /**
      * Lists all your student Review models.
      * @return mixed
@@ -27,15 +25,15 @@ class ReviewController extends Controller
     {
         // Show only your reviews
         // Now hardcoded user ID = 1 which is a student
-        $student_ID = 1;
+        $student_ID = \Yii::$app->user->identity->getId();
 
 
         // Get the AVG score
-        $avgScore = Review::find()->where(['writer_id' => $student_ID ])->average('score');
+        $avgScore = Review::find()->where(['receiver_id' => $student_ID ])->average('score');
         Yii::trace($avgScore);
 
         // Get the reviews
-        $query = Review::find()->where(['writer_id' => $student_ID ]);
+        $query = Review::find()->where(['receiver_id' => $student_ID ]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -82,8 +80,8 @@ class ReviewController extends Controller
         if(isset($data['step'])){
             if($model->save()) {
                 // TODO: Show saved correctly message
-                $this->redirect(array("student/review/index"));
                 $session->remove("review_model");
+                return \Yii::$app->getResponse()->redirect("/student/index");
             }
             else {
                 // TODO: Error handling
@@ -145,8 +143,7 @@ class ReviewController extends Controller
     }
 
     private function _createReview($model, $student_id){
-        // TODO: get current loggedin student/person information
-        $model->writer_id = 1;
+        $model->writer_id = \Yii::$app->user->identity->getId();
         $model->receiver_id = $student_id;
 
         // TODO: fix date!
@@ -178,7 +175,7 @@ class ReviewController extends Controller
             ->one();
 
         $model->vacancy_id = $vacancy->id;
-
+        $this->getSession()["review_model"] = $model;
         return $this->render('writeReview', [
             'model' => $model
         ]);

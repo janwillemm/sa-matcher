@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use \app\models\Person;
+use yii\helpers\Url;
 
 /**
  * Created by PhpStorm.
@@ -11,22 +12,21 @@ use \app\models\Person;
  * Time: 12:09
  */
 
-class EmployeeController extends BaseController {
+class EmployeeBaseController extends BaseController {
 
     /**
      * Show homepage choices
      * @return mixed
      */
 
-    public function beforeAction(){
-        PARENT::beforeAction();
-        if (\Yii::$app->user->isGuest()) {
-            return false;
+    public function beforeAction($action){
+        if (\Yii::$app->user->isGuest) {
+            return \Yii::$app->response->redirect(Url::to(['/authentication/login']));
         }
-        if(!\Yii::$app->user->isEmployee()){
-            return false;
+        if(!\Yii::$app->user->identity->isEmployee()){
+            throw new \yii\web\UnauthorizedHttpException("Je bent geen Docent");
         }
-        return true;
+        return parent::beforeAction($action);
     }
 
 

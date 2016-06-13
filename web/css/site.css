@@ -101,3 +101,7 @@ div.block {
     padding-top:37px;
     float:left;
 }
+
+.list-inline.pull-right{
+    display:none;
+}

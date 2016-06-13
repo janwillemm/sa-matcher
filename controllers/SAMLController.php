@@ -9,6 +9,8 @@
 namespace app\controllers;
 
 use yii\helpers\Url;
+use app\models\Person;
+use yii\web\Session;
 
 class SamlController extends BaseController {
 
@@ -33,17 +35,38 @@ class SamlController extends BaseController {
     }
 
 
+
     /**
      * @param array $attributes attributes sent by Identity Provider.
      */
     public function callback($attributes) {
-        // Find the user
-        var_dump($attributes);
-        die();
-        // Log in the user
 
-        Yii::$app->user->login($user, 3600*24*30);
+        $tud = [
+            "uid" => $attributes['urn:mace:dir:attribute-def:uid'][0],
+            "email" => $attributes['mail'][0],
+            "name" => $attributes['displayName'][0],
+            "affliation" => $attributes['urn:mace:dir:attribute-def:eduPersonAffiliation'][0]
+        ];
+        return $this->redirect($tud);
 
-        return $this->goHome();
+    }
+
+    public function actionFakeloginstudent(){
+        $uid = \Yii::$app->getRequest()->getQueryParam('uid');
+        $tud = ["uid" => $uid ? $uid : "jmanenschijn", "email" => "J.W.Manenschijn@student.tudelft.nl", "name" => "J.W. Manenschijn", "affliation" => "student"];
+        return $this->redirect($tud);
+    }
+
+    public function actionFakeloginemployee(){
+        $uid = \Yii::$app->getRequest()->getQueryParam('uid');
+        $tud = ["uid" => $uid ? $uid : "docent", "email" => "D.O.cent@tudelft.nl", "name" => "Dirk Owen Cent", "affliation" => "employee"];
+        return $this->redirect($tud);
+    }
+
+    private function redirect($tud){
+        $session = new Session();
+        $session->open();
+        $session['tud'] = $tud;
+        return \Yii::$app->response->redirect(Url::to(['/authentication/response']));
     }
 }

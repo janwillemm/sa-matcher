@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "565c572a937f2bcc576fa125f1098965",
-    "content-hash": "77f3c743ffac261deebb26de8fc5453f",
+    "hash": "ae007821e1aa96fc21d46789d6a9de85",
+    "content-hash": "b3e87416e11161012f4e9447cb908f52",
     "packages": [
         {
             "name": "asasmoyo/yii2-saml",
@@ -406,6 +406,51 @@
                 "yii2-user"
             ],
             "time": "2015-09-27 14:49:11"
+        },
+        {
+            "name": "drsdre/yii2-wizardwidget",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/drsdre/yii2-wizardwidget.git",
+                "reference": "d975e750c80cf9f2b3623cba4ac1d966f0c237f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/drsdre/yii2-wizardwidget/zipball/d975e750c80cf9f2b3623cba4ac1d966f0c237f5",
+                "reference": "d975e750c80cf9f2b3623cba4ac1d966f0c237f5",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*",
+                "yiisoft/yii2-bootstrap": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "drsdre\\wizardwidget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "A.F.Schuurman",
+                    "email": "andre.schuurman@gmail.com"
+                }
+            ],
+            "description": "Multi step wizard widget using tabs to guide a user through steps to complete a task. Based on the Form wizard (using tabs) from lukepzak (see http://bootsnipp.com/snippets/featured/form-wizard-using-tabs).",
+            "keywords": [
+                "extension",
+                "tabs",
+                "ui",
+                "widget",
+                "wizard",
+                "yii2"
+            ],
+            "time": "2015-12-03 13:48:54"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -1688,6 +1733,57 @@
                 "saml"
             ],
             "time": "2015-09-09 14:18:12"
+        },
+        {
+            "name": "raveren/kint",
+            "version": "1.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raveren/kint.git",
+                "reference": "c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raveren/kint/zipball/c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb",
+                "reference": "c8423b9928bd35bf6ad14c688ab9c6d17d97d0eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "Kint.class.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rokas Šleinius",
+                    "homepage": "https://github.com/raveren"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/raveren/kint/contributors"
+                }
+            ],
+            "description": "Kint - debugging helper for PHP developers",
+            "homepage": "https://github.com/raveren/kint",
+            "keywords": [
+                "debug",
+                "kint",
+                "php"
+            ],
+            "time": "2015-09-16 14:09:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

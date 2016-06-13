@@ -16,11 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <!-- TODO: Only show button when authorized to make a vacancy -->
-    <p>
-        <?= Html::a('Create Vacancy', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <div class="filter float">
         <?= $this->render("_filter", ['filterModel' => $filterModel]) ?>
     </div>
@@ -35,14 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'attribute' => 'workType',
-                    'value' => 'workType.type'
+                    'content' => function($model, $key, $index, $column) {
+                        $string = "";
+                        foreach($model->workTypes as $workType){
+                            $string .= $workType->type . ", ";
+                        }
+                        return substr($string, 0, -2);;
+                    }
                 ],
                 [
                     'attribute' => 'periodTypes',
                     'content' => function($model, $key, $index, $column) {
                         $string = "";
                         foreach($model->periodTypes as $periodType){
-                            $string .= $periodType->duration . " ,";
+                            $string .= $periodType->duration . ", ";
                         }
                         return substr($string, 0, -2);;
                     }

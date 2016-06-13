@@ -46,14 +46,14 @@ class SiteController extends BaseController
 
     public function actionIndex()
     {
-        $user = !\Yii::$app->user;
+        $user = \Yii::$app->user->identity;
 
         if($user){
             if($user->isStudent()){
-                $this->redirect(Url::to('student/index'));
+                return Yii::$app->getResponse()->redirect(Url::to('student/index'));
             }
             else if($user->isEmployee()){
-                $this->redirect(Url::to('employee/index'));
+                return Yii::$app->getResponse()->redirect(Url::to('employee/index'));
             }
         }
         return $this->render('index');

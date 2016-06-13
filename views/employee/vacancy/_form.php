@@ -12,25 +12,30 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <div class="col-md-6">
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'requirements')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'open_date')->textInput() ?>
+    </div>
+    <div class="col-md-4">
+    <?= $form->field($model, 'expire_date')->input("date") ?>
 
-    <?= $form->field($model, 'expire_date')->textInput() ?>
+<!--    <?//= $form->field($model, 'is_open')->input("checkbox") ?>-->
 
-    <?= $form->field($model, 'is_open')->textInput() ?>
+    <?= $form->field($model, 'hours_per_week')->input("number") ?>
 
-    <?= $form->field($model, 'hours_per_week')->textInput() ?>
-
-    <?= $form->field($model, 'num_of_sa_needed')->textInput() ?>
-
-    <?= $form->field($model, 'type_work_id')->textInput() ?>
-
-    <?= $form->field($model, 'contact_email')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'num_of_sa_needed')->input("number") ?>
+    </div>
+    <div class="col-md-8">
+        <?= $this->render("@app/views/shared/preferences/_form", [
+            'model' => $model->preferences,
+            'form' => $form,
+            'no_courses' => true,
+        ]); ?>
+    </div>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
